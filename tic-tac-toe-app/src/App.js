@@ -4,7 +4,7 @@ function Choturvuj(){
 const [value,setValue]=useState(null);
 
   function handleClick(){
-    console.log("clicked!");
+    setValue("x");
   }
   return( 
   <button 
@@ -17,19 +17,19 @@ function Charkona() {
   return (
     <>
       <div className="charkona-row">
-     <Choturvuj value="1"/>
-     <Choturvuj value="2"/>
-     <Choturvuj value="3"/>
+     <Choturvuj />
+     <Choturvuj />
+     <Choturvuj />
       </div>
       <div className="charkona-row">
-      <Choturvuj value="4"/>
-      <Choturvuj value="5"/>
-      <Choturvuj value="6"/>
+      <Choturvuj /> 
+      <Choturvuj />
+      <Choturvuj />
       </div>
       <div className="charkona-row">
-      <Choturvuj value="7"/>
-      <Choturvuj value="8"/>
-      <Choturvuj value="9"/>
+      <Choturvuj />
+      <Choturvuj />
+      <Choturvuj />
       </div>
     </>
   );
