@@ -14,6 +14,9 @@ function Charkona() {
   const [choturvuj,setChoturvuj] = useState(Array(9).fill(null));
 
  function handleClick(i){
+  if(choturvuj[i]){
+    return;
+  }
     const nextChoturvuj = choturvuj.slice();
     if(xIsNext){
       nextChoturvuj[i]="x";
