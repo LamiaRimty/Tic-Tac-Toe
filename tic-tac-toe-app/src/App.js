@@ -2,9 +2,6 @@ import { useState } from "react";
 
 function Choturvuj({value,onChoturvujClick}){
 
-  // function handleClick(){
-  //   setChoturvuj("x");
-  // }
   return( 
   <button 
   className="choturbuj" 
@@ -13,12 +10,20 @@ function Choturvuj({value,onChoturvujClick}){
 }
 
 function Charkona() {
+  const [xIsNext,setXIsNext]= useState(true);
   const [choturvuj,setChoturvuj] = useState(Array(9).fill(null));
 
  function handleClick(i){
     const nextChoturvuj = choturvuj.slice();
-    nextChoturvuj[i]="x";
+    if(xIsNext){
+      nextChoturvuj[i]="x";
+    }
+   else{
+    nextChoturvuj[i]="o";
+   }
+    
     setChoturvuj(nextChoturvuj);
+    setXIsNext(!xIsNext);
  }
   return (
     <>
