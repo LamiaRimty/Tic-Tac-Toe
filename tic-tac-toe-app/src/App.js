@@ -14,7 +14,8 @@ function Charkona() {
   const [choturvuj,setChoturvuj] = useState(Array(9).fill(null));
 
  function handleClick(i){
-  if(choturvuj[i]){
+
+  if(choturvuj[i]|| calculateWinner(choturvuj)){
     return;
   }
     const nextChoturvuj = choturvuj.slice();
@@ -27,9 +28,21 @@ function Charkona() {
     
     setChoturvuj(nextChoturvuj);
     setXIsNext(!xIsNext);
+
+
+   
+ }
+ const winner = calculateWinner(choturvuj);
+ let status;
+ if(winner){
+   status = "Winner: " + winner;
+ }
+ else{
+   status = "Next player: " + ( xIsNext ? 'x':'o');
  }
   return (
     <>
+<div className="status">{status}</div>
       <div className="charkona-row">
      <Choturvuj  value={choturvuj[0]} onChoturvujClick={()=>handleClick(0)}/>
      <Choturvuj value={choturvuj[1]} onChoturvujClick={()=>handleClick(1)}/>
