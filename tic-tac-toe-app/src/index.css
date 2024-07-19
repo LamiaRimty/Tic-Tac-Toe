@@ -85,11 +85,11 @@ body {
 .status {
   margin-bottom: 10px;
 }
-.game {
+.khela {
   display: flex;
   flex-direction: row;
 }
 
-.game-info {
+.khela-totho {
   margin-left: 20px;
 }

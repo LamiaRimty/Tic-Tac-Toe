@@ -83,4 +83,17 @@ function calculateWinner(choturbuj){
   return null;
 }
 
-export default Charkona;
+
+export default function Khela(){
+return(
+  <div className="khela">
+    <div className="khela-charkona">
+    <Charkona/>
+    </div>
+
+    <div className="khela-totho">
+    <ol>{/* todo */}</ol>
+    </div>
+  </div>
+)
+}
