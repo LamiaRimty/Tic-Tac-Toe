@@ -9,13 +9,11 @@ function Choturvuj({value,onChoturvujClick}){
 )
 }
 
-function Charkona() {
-  const [xIsNext,setXIsNext]= useState(true);
-  const [choturvuj,setChoturvuj] = useState(Array(9).fill(null));
+function Charkona({xIsNext,choturvuj,onPlay}) {
 
  function handleClick(i){
 
-  if(choturvuj[i]|| calculateWinner(choturvuj)){
+  if(calculateWinner(choturvuj) || choturvuj[i]){
     return;
   }
     const nextChoturvuj = choturvuj.slice();
@@ -26,8 +24,8 @@ function Charkona() {
     nextChoturvuj[i]="o";
    }
     
-    setChoturvuj(nextChoturvuj);
-    setXIsNext(!xIsNext);
+ onPlay(nextChoturvuj);
+ 
 
 
    
@@ -62,7 +60,7 @@ function Charkona() {
   );
 }
 
-function calculateWinner(choturbuj){
+function calculateWinner(choturvuj){
   const lines =[
     [0, 1, 2],
     [3, 4, 5],
@@ -76,8 +74,8 @@ function calculateWinner(choturbuj){
 
   for(let i=0; i<lines.length;i++){
     const [a,b,c]= lines[i];
-    if(choturbuj[a] && choturbuj[a] === choturbuj[b] && choturbuj[b] === choturbuj[c] &&  choturbuj[c]){
-      return choturbuj[a];
+    if(choturvuj[a] && choturvuj[a] === choturvuj[b] && choturvuj[b] === choturvuj[c] &&  choturvuj[c]){
+      return choturvuj[a];
     }
   }
   return null;
@@ -85,14 +83,45 @@ function calculateWinner(choturbuj){
 
 
 export default function Khela(){
+
+const [xIsNext,setXIsNext]= useState(true);
+const [history,setHistory]= useState([Array(9).fill(null)]);
+const currentChoturvuj= history[history.length-1];
+
+function handleKhela(nextChoturvuj){
+ setHistory([...history, nextChoturvuj]);
+ setXIsNext(!xIsNext);
+}
+
+function jumbo(nextMove){
+ 
+}
+
+const moves = history.map((choturvuj,move)=>{
+  let desc;
+  if(move> 0){
+    desc= "Go to move #"+ move;
+  }
+  else{
+    desc = "Go to game start";
+  
+  }
+
+  return(
+    <li>
+    <button onClick={()=> jumpTo(move)}>{desc}</button>
+    </li>
+  );
+})
+
 return(
   <div className="khela">
     <div className="khela-charkona">
-    <Charkona/>
+    <Charkona xIsNext={xIsNext}  choturvuj={currentChoturvuj}  onPlay={handleKhela}/>
     </div>
 
     <div className="khela-totho">
-    <ol>{/* todo */}</ol>
+    <ol>{moves}</ol>
     </div>
   </div>
 )
