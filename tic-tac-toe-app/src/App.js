@@ -86,6 +86,7 @@ export default function Khela(){
 
 const [xIsNext,setXIsNext]= useState(true);
 const [history,setHistory]= useState([Array(9).fill(null)]);
+const [currentMove, setCurrentMove] = useState(0);
 const currentChoturvuj= history[history.length-1];
 
 function handleKhela(nextChoturvuj){
@@ -93,8 +94,9 @@ function handleKhela(nextChoturvuj){
  setXIsNext(!xIsNext);
 }
 
-function jumbo(nextMove){
- 
+function jumpTo(nextMove){
+  setCurrentMove(nextMove)
+  setXIsNext(nextMove % 2 === 0);
 }
 
 const moves = history.map((choturvuj,move)=>{
@@ -108,7 +110,7 @@ const moves = history.map((choturvuj,move)=>{
   }
 
   return(
-    <li>
+    <li key={move}>
     <button onClick={()=> jumpTo(move)}>{desc}</button>
     </li>
   );
