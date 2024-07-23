@@ -60,6 +60,55 @@ function Charkona({xIsNext,choturvuj,onPlay}) {
   );
 }
 
+export default function Khela(){
+
+  const [history,setHistory]= useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext=currentMove % 2 === 0;
+  const currentChoturvuj=history[currentMove];
+  
+  function handleKhela(nextChoturvuj){
+   const nextHistory = [...history.slice(0,currentMove + 1), nextChoturvuj];
+   setHistory(nextHistory);
+   setCurrentMove(nextHistory.length - 1);
+
+  }
+  
+  function jumpTo(nextMove){
+    setCurrentMove(nextMove)
+    
+  }
+  
+  const moves = history.map((choturvuj,move)=>{
+    let desc;
+    if(move> 0){
+      desc= "Go to move #"+ move;
+    }
+    else{
+      desc = "Go to game start";
+    
+    }
+  
+    return(
+      <li key={move}>
+      <button onClick={()=> jumpTo(move)}>{desc}</button>
+      </li>
+    );
+  })
+  
+  return(
+    <div className="khela">
+      <div className="khela-charkona">
+      <Charkona xIsNext={xIsNext} choturvuj={currentChoturvuj} onPlay={handleKhela}/>
+      </div>
+  
+      <div className="khela-totho">
+      <ol>{moves}</ol>
+      </div>
+    </div>
+  )
+  }
+
 function calculateWinner(choturvuj){
   const lines =[
     [0, 1, 2],
@@ -82,49 +131,4 @@ function calculateWinner(choturvuj){
 }
 
 
-export default function Khela(){
 
-const [xIsNext,setXIsNext]= useState(true);
-const [history,setHistory]= useState([Array(9).fill(null)]);
-const [currentMove, setCurrentMove] = useState(0);
-const currentChoturvuj= history[history.length-1];
-
-function handleKhela(nextChoturvuj){
- setHistory([...history, nextChoturvuj]);
- setXIsNext(!xIsNext);
-}
-
-function jumpTo(nextMove){
-  setCurrentMove(nextMove)
-  setXIsNext(nextMove % 2 === 0);
-}
-
-const moves = history.map((choturvuj,move)=>{
-  let desc;
-  if(move> 0){
-    desc= "Go to move #"+ move;
-  }
-  else{
-    desc = "Go to game start";
-  
-  }
-
-  return(
-    <li key={move}>
-    <button onClick={()=> jumpTo(move)}>{desc}</button>
-    </li>
-  );
-})
-
-return(
-  <div className="khela">
-    <div className="khela-charkona">
-    <Charkona xIsNext={xIsNext}  choturvuj={currentChoturvuj}  onPlay={handleKhela}/>
-    </div>
-
-    <div className="khela-totho">
-    <ol>{moves}</ol>
-    </div>
-  </div>
-)
-}
